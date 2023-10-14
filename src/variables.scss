@@ -1,0 +1,51 @@
+/* Variables and mixins declared here will be available in all other SCSS files */
+@import "minMaxSize.scss";
+
+:root, ::backdrop {
+    /*global css variables*/
+    --loading-background-color: white;
+    --loading-text-color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root,
+	::backdrop {
+		--loading-background-color: black;
+		--loading-text-color: white;
+	}
+}
+
+%heading-1,
+%heading-2,
+%heading-3,
+%heading-4 {
+	margin: 0;
+	font-weight: bold;
+	font-size: 26px;
+}
+%heading-2 {
+	font-size: 22px;
+}
+%heading-3 {
+	font-size: 18px;
+}
+%heading-4 {
+	font-size: 14px;
+}
+
+%screen-reader-only {
+    /*only visible to screen readers*/
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(
+		1px 1px 1px 1px
+	); /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+	clip: rect(1px, 1px, 1px, 1px); /*maybe deprecated but we need to support legacy browsers */
+	clip-path: inset(50%); /*modern browsers, clip-path works inwards from each corner*/
+	white-space: nowrap;
+}

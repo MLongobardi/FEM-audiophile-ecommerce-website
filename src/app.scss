@@ -1,0 +1,40 @@
+@import "normalize.css";
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100svh; /*Only when supported*/
+}
+
+//h1, h2...
+@for $i from 1 through 4 {
+	h#{$i} {
+		@extend %heading-#{$i};
+	}
+}
+
+button,
+input[type="submit"],
+label:has(input[type="radio"]),
+label:has(input[type="checkbox"]) {
+	user-select: none;
+	--btn-color-var-1: "";
+	--btn-color-hov-1: "";
+	--btn-color-var-2: "";
+	--btn-color-hov-2: "";
+	
+	&:not(:disabled) {
+		.hoverable & {
+			transition: background-color 0.25s;
+			cursor: pointer; /*Only set on non-mobile devices to avoid the blue flash on tap*/
+		}
+		.hoverable &:hover,
+		&:active {
+			--btn-color-var-1: var(--btn-color-hov-1) !important;
+			--btn-color-var-2: var(--btn-color-hov-2) !important;
+		}
+	}
+}

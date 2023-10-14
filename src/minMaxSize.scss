@@ -1,0 +1,38 @@
+/**
+ * minMaxSize scales a value linearly from $size-at-min to $size-at-max depending on the screen width, using vw units.
+ * For example, if the screen size is at 33% of the way from $min-screen to $max-screen,
+ * the returned value will similarly be at 33% of the way from $size-at-min to $size-at-max.
+ * minMaxSizeList paired with media queries is useful when a size must scale between multiple, unaligned points.
+ * Original idea from: 
+ * https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+ */
+
+@use "sass:math";
+@use "sass:list";
+
+@function minMaxSize($size-at-min, $size-at-max, $min-screen: 375px, $max-screen: 768px) {
+    //$size-at-min and $size-at-max should be px, can be negative values and can go from big to small;
+
+    @if $min-screen >= $max-screen {
+        @error "$max-screen should be higher than $min-screen";
+    }
+    @if $size-at-min == $size-at-max {
+        @return $size-at-min;
+    }
+	
+	$slope: math.div($size-at-max - $size-at-min, $max-screen - $min-screen);
+    $y-intersection: $size-at-min - $min-screen * $slope;
+    
+    $smallest-size: math.min($size-at-min, $size-at-max);
+    $biggest-size: math.max($size-at-min, $size-at-max);
+
+	@return #{clamp(#{$smallest-size}, #{$y-intersection} + #{$slope * 100vw}, #{$biggest-size})};
+}
+
+@function minMaxSizeList($first, $second) {
+    @if (type-of($first) != list) or (type-of($second) != list) {
+        @error "Arguments should be lists of (value, screen)";
+    }
+    
+    @return minMaxSize(list.nth($first, 1), list.nth($second, 1), list.nth($first, 2), list.nth($second, 2));
+}
