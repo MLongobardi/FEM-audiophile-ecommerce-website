@@ -3,8 +3,11 @@
 	import { Header, Footer, Loading } from "$comps";
 	import { mediaStore } from "$stores";
     import { onMount } from "svelte";
+
+	export let data;
+	
 	let loading = true;
-    
+
     onMount(()=>{
         loading = false;
     })
@@ -22,6 +25,11 @@
 	<span class="top-hdr" />
 	<Header />
 	<span class="hdr-main" />
+	categories: {JSON.stringify(data.categories)}
+	<br>
+	all products: {JSON.stringify(data.allProducts.map(p=>p.name))}
+	<br>
+	new products: {JSON.stringify(data.newProducts.map(p=>p.name))}
 	<slot />
 	<span class="main-ftr" />
 	<Footer />

@@ -11,6 +11,7 @@
 		<a href="/">Home</a>
 		<a href="/headphones">Headphones</a>
 		<a href="/headphones/test-product-1">Test product 1</a>
+		<a href="/checkout">Checkout</a>
 		<a href="/akjahk">Category error</a>
 		<a href="/headphones/jsnkls">Product error</a>
 		<a href="/fjfijf/test product 1">Product with category error</a>
